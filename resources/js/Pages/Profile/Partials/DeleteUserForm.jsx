@@ -1,18 +1,13 @@
-// import Modal from '@/Components/Modal';
 import { useForm } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
-import { Modal } from "bootstrap"
+import Modal from '@/Components/Modal';
 
 export default function DeleteUserForm() {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(true);
+    const [toggleModal, setToggleModal] = useState(false);
     const passwordInput = useRef();
-    const modalRef = useRef();
-    let modalIntance = null;
 
-    useEffect(() => {
-        modalIntance = new Modal(modalRef.current, { backdrop: "false" });
-    }, [confirmingUserDeletion])
- 
+
     const {
         data,
         setData,
@@ -26,8 +21,8 @@ export default function DeleteUserForm() {
     });
 
     const confirmUserDeletion = () => {
+        setToggleModal(true);
         setConfirmingUserDeletion(true);
-        modalIntance.show();
     };
 
     const deleteUser = (e) => {
@@ -42,13 +37,15 @@ export default function DeleteUserForm() {
     };
 
     const closeModal = () => {
+        setToggleModal(false);
         setConfirmingUserDeletion(false);
+
 
         clearErrors();
         reset();
     };
 
- 
+
 
     return (
         // <section className={`space-y-6 ${className}`}>
@@ -132,6 +129,42 @@ export default function DeleteUserForm() {
                     <button type="button" onClick={confirmUserDeletion} className="btn btn-danger w-50 my-3">Delete Account</button>
                 </div>
             </div>
+            <Modal toggleModal={toggleModal}>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <form action="" onSubmit={deleteUser}>
+                            <div className="modal-header">
+                                <h5 className="modal-title">Are you sure you want to delete your account?</h5>
+                                <button type="button" onClick={closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.</p>
+                                <div className="mb-3">
+                                    <label>Password</label>
+                                    <div className="input-group">
+                                        <input type="password" className="form-control password_input" placeholder="Password" value={data.password} onChange={(e) => setData('password', e.target.value)} />
+                                        <div className="input-group-append">
+                                            <div className="input-group-text">
+                                                <i className="fas fa-eye-slash" role='button' password-visibility="hide" title='Toggle password' onClick={(e) => togglePassword(e.target)}></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {errors.password && <span className='pl-1 m-0 text-danger text-sm'>{errors.password}</span>}
+                                </div>
+                            </div>
+                            <div className="modal-footer justify-content-between">
+                                <button type="button" onClick={closeModal} className="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" className="btn btn-danger" disabled={processing}>Delete Account
+                                    {processing && <div className='spinner-border'></div>}
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }
