@@ -38,7 +38,7 @@ const Sidebar = () => {
                             </a>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <Link href={route('user.list')} className={`nav-link ${currentURL.includes('user-list') ? 'active' : ''}`}>
+                                    <Link href={route('user.index')} className={`nav-link ${currentURL.includes('user-list') ? 'active' : ''}`}>
                                         <i className="far fa-circle nav-icon"></i>
                                         <p>User List</p>
                                     </Link>
