@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', Controllers\DashboardController::class)->name('dashboard');
     Route::resource('user', Controllers\UserController::class);
+    Route::get('user-list-ajax', [Controllers\UserController::class, 'user_list_ajax'])->name('user.ajax_list');
     // Route::prefix('user')->controller(Controllers\UserController::class)->group(function () {
     //     Route::get('user-list', 'user_list')->name('user.list');
     // });

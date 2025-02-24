@@ -1,7 +1,61 @@
+import "datatables.net-dt/css/dataTables.dataTables.min.css";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import DataTable from 'datatables.net-dt';
+import { useEffect, useRef } from 'react';
+import { createRoot } from "react-dom/client";
+
 
 const UserList = () => {
+    const userTableRef = useRef();
+    useEffect(() => {
+        const table = new DataTable(userTableRef.current, {
+            pageLength: 50,
+            processing: true,
+            language: {
+                search: "_INPUT_", // Removes the 'Search' field label
+                searchPlaceholder: "Type here to search..", // Placeholder for the search box 
+            },
+            serverSide: true,
+            ajax: route('user.ajax_list'),
+            order: [
+                [0, 'desc']
+            ],
+            rowCallback: (row, data, index) => {
+                const actionCell = row.cells[3];
+                actionCell.classList.add("text-center")
+                if (!actionCell._reactRoot) {
+                    actionCell._reactRoot = createRoot(actionCell)
+                }
+                actionCell._reactRoot.render(
+                    <>
+                        <a href="#" className="text-success mx-2" title="Edit">
+                            <i className="fa fa-edit" style={{ fontSize: "15px" }}></i>
+                        </a>
+                        <a href="#" data-id={data[0]} onClick={handle_delete} className="text-danger mx-2" title="Delete">
+                            <i className="fa fa-trash-alt" style={{ fontSize: "15px" }}></i>
+                        </a>
+                    </>
+                )
+            }
+        })
+    }, [])
+    const handle_delete = (event) => {
+        console.log(event);
+        // if (confirm('Are you sure want to delete?')) {
+        //     const curent_tr_elem = elem.parentElement.parentElement;
+        //     const venue_id = elem.getAttribute('data-id');
+        //     fetch(`https://weddingvenues.in/admin/venue/venue_delete/${venue_id}`).then(response => response.json()).then(data => {
+        //         if (data.success === true) {
+        //             curent_tr_elem.style.backgroundColor = "yellow";
+        //             setTimeout(() => {
+        //                 curent_tr_elem.remove();
+        //             }, 100);
+        //         }
+        //         toastr[data.alert_type](data.message);
+        //     })
+        // }
+    }
     return (
         <AuthenticatedLayout>
             <Head title="User List">
@@ -18,170 +72,18 @@ const UserList = () => {
                 </div>
                 <div className="content">
                     <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-lg-6">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
+                        <div className="table-responsive text-sm">
+                            <table ref={userTableRef} className="table dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th className="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
 
-                                        <p className="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-
-                                        <a href="#" className="card-link">Card link</a>
-                                        <a href="#" className="card-link">Another link</a>
-                                    </div>
-                                </div>
-
-                                <div className="card card-primary card-outline">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-
-                                        <p className="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-                                        <a href="#" className="card-link">Card link</a>
-                                        <a href="#" className="card-link">Another link</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6">
-                                <div className="card">
-                                    <div className="card-header">
-                                        <h5 className="m-0">Featured</h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <h6 className="card-title">Special title treatment</h6>
-
-                                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-
-                                <div className="card card-primary card-outline">
-                                    <div className="card-header">
-                                        <h5 className="m-0">Featured</h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <h6 className="card-title">Special title treatment</h6>
-
-                                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-lg-6">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-
-                                        <p className="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-
-                                        <a href="#" className="card-link">Card link</a>
-                                        <a href="#" className="card-link">Another link</a>
-                                    </div>
-                                </div>
-
-                                <div className="card card-primary card-outline">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-
-                                        <p className="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-                                        <a href="#" className="card-link">Card link</a>
-                                        <a href="#" className="card-link">Another link</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6">
-                                <div className="card">
-                                    <div className="card-header">
-                                        <h5 className="m-0">Featured</h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <h6 className="card-title">Special title treatment</h6>
-
-                                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-
-                                <div className="card card-primary card-outline">
-                                    <div className="card-header">
-                                        <h5 className="m-0">Featured</h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <h6 className="card-title">Special title treatment</h6>
-
-                                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-lg-6">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-
-                                        <p className="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-
-                                        <a href="#" className="card-link">Card link</a>
-                                        <a href="#" className="card-link">Another link</a>
-                                    </div>
-                                </div>
-
-                                <div className="card card-primary card-outline">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-
-                                        <p className="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-                                        <a href="#" className="card-link">Card link</a>
-                                        <a href="#" className="card-link">Another link</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6">
-                                <div className="card">
-                                    <div className="card-header">
-                                        <h5 className="m-0">Featured</h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <h6 className="card-title">Special title treatment</h6>
-
-                                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-
-                                <div className="card card-primary card-outline">
-                                    <div className="card-header">
-                                        <h5 className="m-0">Featured</h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <h6 className="card-title">Special title treatment</h6>
-
-                                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
