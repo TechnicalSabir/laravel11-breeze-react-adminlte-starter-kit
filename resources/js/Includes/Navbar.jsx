@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
 import userLogo from "admin-lte/dist/img/user1-128x128.jpg"
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 
 const Navbar = () => {
-
-
+    const handleLogout = () => {
+        if(confirm("Are you sure want to logout")){
+            router.visit(route('logout'))
+        }
+    }
     return (
         <nav className="main-header navbar navbar-expand navbar-white navbar-light">
             <ul className="navbar-nav">
@@ -122,12 +124,12 @@ const Navbar = () => {
                     </a>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" href={route('logout')}>
+                    <button className="btn nav-link" onClick={handleLogout}>
                         <i className="fas fa-power-off"></i>
-                    </Link>
+                    </button>
                 </li>
             </ul>
-        </nav>
+        </nav >
     )
 }
 

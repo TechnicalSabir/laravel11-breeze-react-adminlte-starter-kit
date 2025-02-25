@@ -12,7 +12,7 @@
     @inertiaHead
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased sidebar-mini layout-fixed">
     @inertia
     <script src="{{asset('js/common.js')}}"></script>
 </body>

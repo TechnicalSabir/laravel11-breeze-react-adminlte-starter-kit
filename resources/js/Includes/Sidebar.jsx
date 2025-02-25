@@ -1,12 +1,11 @@
 import { Link, usePage} from '@inertiajs/react'
-import React, { useEffect } from 'react'
 import AdminLTELogo from "admin-lte/dist/img/AdminLTELogo.png"
 import userLogo from "admin-lte/dist/img/user1-128x128.jpg"
-
 
 const Sidebar = () => {
     const page = usePage();
     const currentURL = page.url;
+    console.log(currentURL)
     const user = page.props.auth.user;
     return (
         <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -31,16 +30,16 @@ const Sidebar = () => {
                                 <p>Dashboard</p>
                             </Link>
                         </li>
-                        <li className={`nav-item ${currentURL.includes('user') ? 'menu-is-opening menu-open' : ''}`}>
-                            <a href="#" className={`nav-link ${currentURL.includes('user') ? 'active' : ''}`}>
-                                <i className="nav-icon fas fa-tachometer-alt"></i>
-                                <p>User <i className="right fas fa-angle-left"></i></p>
+                        <li className={`nav-item ${currentURL.includes('/users') ? 'menu-is-opening menu-open' : ''}`}>
+                            <a href="#" className={`nav-link ${currentURL.includes('/users') ? 'active' : ''}`}>
+                                <i className="nav-icon fas fa-users"></i>
+                                <p>Users <i className="right fas fa-angle-left"></i></p>
                             </a>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <Link href={route('user.index')} className={`nav-link ${currentURL.includes('user-list') ? 'active' : ''}`}>
+                                    <Link href={route('users.index')} className={`nav-link ${currentURL.includes('/users') ? 'active' : ''}`}>
                                         <i className="far fa-circle nav-icon"></i>
-                                        <p>User List</p>
+                                        <p>Users List</p>
                                     </Link>
                                 </li>
                             </ul>
@@ -50,9 +49,6 @@ const Sidebar = () => {
                 </nav>
             </div>
         </aside>
-
-
-
     )
 }
 

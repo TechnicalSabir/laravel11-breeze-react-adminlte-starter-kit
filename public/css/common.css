@@ -1,9 +1,23 @@
-.login-logo{
+.login-logo {
     font-size: 1.5rem !important;
     font-weight: 400 !important;
 }
-.spinner-border{
+
+.spinner-border {
     width: 14px !important;
     height: 14px !important;
     margin-left: 6px !important;
+}
+
+.main-header {
+    z-index: unset !important;
+}
+
+.dt-paging-button {
+    border-radius: 50px !important;
+    font-size: 0.875rem;
+}
+
+.dt-length label {
+    margin-left: 0.5rem;
 }

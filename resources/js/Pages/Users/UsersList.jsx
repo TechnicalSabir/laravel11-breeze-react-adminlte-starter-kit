@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 import { createRoot } from "react-dom/client";
 
 
-const UserList = () => {
+const UserList = ({ title }) => {
     const userTableRef = useRef();
     useEffect(() => {
         const table = new DataTable(userTableRef.current, {
@@ -17,11 +17,12 @@ const UserList = () => {
                 searchPlaceholder: "Type here to search..", // Placeholder for the search box 
             },
             serverSide: true,
-            ajax: route('user.ajax_list'),
+            ajax: route('users.ajax_list'),
             order: [
                 [0, 'desc']
             ],
             rowCallback: (row, data, index) => {
+                row.cells[0].classList.add('text-left')
                 const actionCell = row.cells[3];
                 actionCell.classList.add("text-center")
                 if (!actionCell._reactRoot) {
@@ -58,14 +59,14 @@ const UserList = () => {
     }
     return (
         <AuthenticatedLayout>
-            <Head title="User List">
+            <Head title={title}>
             </Head>
             <div className="content-wrapper">
                 <div className="content-header">
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h1 className="m-0">User List</h1>
+                                <h1 className="m-0">{title}</h1>
                             </div>
                         </div>
                     </div>
@@ -76,7 +77,7 @@ const UserList = () => {
                             <table ref={userTableRef} className="table dataTable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th className="text-left">ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th className="text-center">Action</th>

@@ -6,7 +6,6 @@ const ModalComponent = ({ children, toggleModal }) => {
     const modalRef = useRef();
     let modal = null;
     useEffect(() => {
-        console.log(modalRef)
         modal = new Modal(modalRef.current, { backdrop: "static" });
         if (toggleModal) {
             modal.show();
