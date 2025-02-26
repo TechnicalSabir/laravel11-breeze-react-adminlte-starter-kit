@@ -30,7 +30,7 @@ const UserList = ({ title }) => {
                 }
                 actionCell._reactRoot.render(
                     <>
-                        <a href="#" className="text-success mx-2" title="Edit">
+                        <a href={route('users.edit', data[0])} className="text-success mx-2" title="Edit">
                             <i className="fa fa-edit" style={{ fontSize: "15px" }}></i>
                         </a>
                         <a href="#" data-id={data[0]} onClick={handle_delete} className="text-danger mx-2" title="Delete">
@@ -59,8 +59,7 @@ const UserList = ({ title }) => {
     }
     return (
         <AuthenticatedLayout>
-            <Head title={title}>
-            </Head>
+            <Head title={title} />
             <div className="content-wrapper">
                 <div className="content-header">
                     <div className="container-fluid">
