@@ -1,8 +1,9 @@
-import { Link, usePage} from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import AdminLTELogo from "admin-lte/dist/img/AdminLTELogo.png"
 import userLogo from "admin-lte/dist/img/user1-128x128.jpg"
+import React from 'react';
 
-const Sidebar = () => {
+const Sidebar = React.memo(() => {
     const page = usePage();
     const currentURL = page.url;
     console.log(currentURL)
@@ -50,6 +51,6 @@ const Sidebar = () => {
             </div>
         </aside>
     )
-}
+});
 
 export default Sidebar

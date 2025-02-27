@@ -1,6 +1,6 @@
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import DataTable from 'datatables.net-dt';
 import { useEffect, useRef } from 'react';
 import { createRoot } from "react-dom/client";
@@ -30,12 +30,12 @@ const UserList = ({ title }) => {
                 }
                 actionCell._reactRoot.render(
                     <>
-                        <a href={route('users.edit', data[0])} className="text-success mx-2" title="Edit">
+                        <Link href={route('users.edit', data[0])} className="text-success mx-2" title="Edit">
                             <i className="fa fa-edit" style={{ fontSize: "15px" }}></i>
-                        </a>
-                        <a href="#" data-id={data[0]} onClick={handle_delete} className="text-danger mx-2" title="Delete">
+                        </Link>
+                        <Link href="#" data-id={data[0]} onClick={handle_delete} className="text-danger mx-2" title="Delete">
                             <i className="fa fa-trash-alt" style={{ fontSize: "15px" }}></i>
-                        </a>
+                        </Link>
                     </>
                 )
             }
@@ -63,10 +63,9 @@ const UserList = ({ title }) => {
             <div className="content-wrapper">
                 <div className="content-header">
                     <div className="container-fluid">
-                        <div className="row mb-2">
-                            <div className="col-sm-6">
+                        <div className="row mb-2 justify-content-between">
                                 <h1 className="m-0">{title}</h1>
-                            </div>
+                                <Link href={route('users.create')} className="btn btn-success btn-sm">Add New</Link>
                         </div>
                     </div>
                 </div>

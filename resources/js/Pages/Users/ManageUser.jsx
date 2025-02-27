@@ -1,28 +1,33 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react'
-import React from 'react'
 
-const UserEdit = ({ title, user }) => {
-    const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
-        name: user.name,
-        email: user.email,
-        password: ""
-    });
-    console.log(recentlySuccessful);
+const UserEdit = ({ title, userData }) => {
+    console.log(userData);
+    const { data, setData, put, post, reset, errors, processing, recentlySuccessful } = useForm(userData);
 
     const updateUser = (e) => {
         e.preventDefault();
 
-        put(route('users.update', user.id), {
-            preserveScroll: true,
-            onSuccess: () => reset(),
-            onError: (errors) => {
-                if (errors.password) {
-                    reset('password', 'password_confirmation');
-                    passwordInput.current.focus();
-                }
-            },
-        });
+        if (userData.id > 0) {
+            put(route('users.update', userData.id), {
+                preserveScroll: true,
+                onError: (errors) => {
+                    if (errors.password) {
+                        reset('password');
+                    }
+                },
+            });
+        } else {
+            post(route('users.store'), {
+                preserveScroll: true,
+                onError: (errors) => {
+                    if (errors.password) {
+                        reset('password');
+                    }
+                },
+            })
+        }
     }
     return (
         <AuthenticatedLayout>
@@ -59,9 +64,23 @@ const UserEdit = ({ title, user }) => {
                                         <div className="form-group">
                                             <label>Password</label>
                                             <input type="text" className="form-control" onChange={(e) => setData('password', e.target.value)} />
+                                            {errors.password && <span className='text-danger text-sm pl-1'>{errors.password}</span>}
                                         </div>
-                                        <div className="d-flex align-items-center mt-4">
-                                            <button type="submit" className="btn btn-primary">Save</button>
+                                        <div className="d-flex align-items-center mt-4" style={{ gap: "20px" }}>
+                                            <button type="submit" className="btn btn-primary" disabled={processing}>Save
+                                                {processing && <div className='spinner-border'></div>}
+                                            </button>
+                                            <Transition
+                                                show={recentlySuccessful}
+                                                enter="transition ease-in-out"
+                                                enterFrom="opacity-0"
+                                                leave="transition ease-in-out"
+                                                leaveTo="opacity-0"
+                                            >
+                                                <p className="text-sm text-success mb-0">
+                                                    Saved.
+                                                </p>
+                                            </Transition>
                                         </div>
                                     </div>
                                 </form>
