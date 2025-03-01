@@ -29,11 +29,11 @@ class UserController extends Controller {
         return "hello show function";
     }
 
-
     public function create() {
         $user = new User();
         $title = "Add User";
         return Inertia::render('Users/ManageUser', [
+            'status' => session('status'),
             'title' => $title,
             'userData' => ['name' => '', 'email' => ''],
         ]);
@@ -47,7 +47,7 @@ class UserController extends Controller {
         ]);
         User::create($request->only('name', 'email', 'password'));
 
-        return Redirect::route('users.create');
+        session()->flash("status", ['success' => true, 'alert_type' => 'success', 'message' => 'User added!']);
     }
 
     public function edit($id) {
@@ -55,6 +55,7 @@ class UserController extends Controller {
         $user = User::select('id', 'name', 'email')->where('id', $id)->first();
         !$user ?? abort(404);
         return Inertia::render('Users/ManageUser', [
+            'status' => session('status'),
             'title' => $title,
             'userData' => $user,
         ]);
@@ -71,7 +72,12 @@ class UserController extends Controller {
             'email' => $request->email,
         ]);
 
-        // return back()->with('success', 'updated');
-        return Redirect::route('users.edit', $id);
+        session()->flash("status", ['success' => true, 'alert_type' => 'success', 'message' => 'User updated!']);
+    }
+
+    public function destroy($id){
+        User::destroy($id);
+        session()->flash("status", ['success' => true, 'alert_type' => 'success', 'message' => 'User deleted!']);
+
     }
 }

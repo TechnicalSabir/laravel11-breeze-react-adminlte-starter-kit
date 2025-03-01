@@ -1,10 +1,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Transition } from '@headlessui/react';
-import { Head, useForm } from '@inertiajs/react'
+import { Head, router, useForm } from '@inertiajs/react';
+import Swal from 'sweetalert2';
 
-const UserEdit = ({ title, userData }) => {
-    console.log(userData);
+
+const UserEdit = ({ title, userData, status }) => {
     const { data, setData, put, post, reset, errors, processing, recentlySuccessful } = useForm(userData);
+    if (recentlySuccessful) {
+        Swal.fire({
+            title: status.success === true ? "Success" : "Failed",
+            text: status.message,
+            icon: status.alert_type
+        })
+    }
 
     const updateUser = (e) => {
         e.preventDefault();
@@ -52,13 +60,13 @@ const UserEdit = ({ title, userData }) => {
                                 <form action="" method="post" onSubmit={updateUser}>
                                     <div className="col-md-6">
                                         <div className="form-group">
-                                            <label>Name</label>
-                                            <input type="text" className="form-control" value={data.name} onChange={(e) => setData('name', e.target.value)} />
+                                            <label>Name <span className='text-danger'>*</span></label>
+                                            <input type="text" className="form-control" value={data.name} onChange={(e) => setData('name', e.target.value)} required />
                                             {errors.name && <span className='text-danger text-sm pl-1'>{errors.name}</span>}
                                         </div>
                                         <div className="form-group">
-                                            <label>Email</label>
-                                            <input type="email" className="form-control" value={data.email} onChange={(e) => setData('email', e.target.value)} />
+                                            <label>Email <span className='text-danger'>*</span></label>
+                                            <input type="email" className="form-control" value={data.email} onChange={(e) => setData('email', e.target.value)} required />
                                             {errors.email && <span className='text-danger text-sm pl-1'>{errors.email}</span>}
                                         </div>
                                         <div className="form-group">
@@ -84,6 +92,9 @@ const UserEdit = ({ title, userData }) => {
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                            <div className="card-footer">
+                                <p className='mb-0'><span className='text-danger text-bold'>*</span> Fields are mendatory</p>
                             </div>
                         </div>
                     </div>

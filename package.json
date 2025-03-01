@@ -26,6 +26,7 @@
         "datatables.net-dt": "^2.2.2",
         "husky": "^9.1.7",
         "jquery": "^3.7.1",
-        "popper.js": "^1.16.1"
+        "popper.js": "^1.16.1",
+        "sweetalert2": "^11.17.2"
     }
 }

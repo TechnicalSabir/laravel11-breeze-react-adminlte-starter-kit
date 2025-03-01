@@ -1,12 +1,14 @@
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import DataTable from 'datatables.net-dt';
 import { useEffect, useRef } from 'react';
 import { createRoot } from "react-dom/client";
+import Swal from "sweetalert2";
 
 
 const UserList = ({ title }) => {
+    const { data, delete: destroy } = useForm();
     const userTableRef = useRef();
     useEffect(() => {
         const table = new DataTable(userTableRef.current, {
@@ -33,29 +35,36 @@ const UserList = ({ title }) => {
                         <Link href={route('users.edit', data[0])} className="text-success mx-2" title="Edit">
                             <i className="fa fa-edit" style={{ fontSize: "15px" }}></i>
                         </Link>
-                        <Link href="#" data-id={data[0]} onClick={handle_delete} className="text-danger mx-2" title="Delete">
-                            <i className="fa fa-trash-alt" style={{ fontSize: "15px" }}></i>
-                        </Link>
+                        <i data-id={data[0]} className="fa fa-trash-alt text-danger mx-2" title="Delete" onClick={deleteData} style={{ fontSize: "15px", cursor: "pointer" }}></i>
                     </>
                 )
             }
         })
-    }, [])
-    const handle_delete = (event) => {
-        console.log(event);
-        // if (confirm('Are you sure want to delete?')) {
-        //     const curent_tr_elem = elem.parentElement.parentElement;
-        //     const venue_id = elem.getAttribute('data-id');
-        //     fetch(`https://weddingvenues.in/admin/venue/venue_delete/${venue_id}`).then(response => response.json()).then(data => {
-        //         if (data.success === true) {
-        //             curent_tr_elem.style.backgroundColor = "yellow";
-        //             setTimeout(() => {
-        //                 curent_tr_elem.remove();
-        //             }, 100);
-        //         }
-        //         toastr[data.alert_type](data.message);
-        //     })
-        // }
+    }, [userTableRef])
+    const deleteData = (event) => {
+        const currentElement = event.target;
+        const dataID = currentElement.getAttribute('data-id');
+        const row = currentElement.parentElement.parentElement;
+        Swal.fire({
+            title: "Are you sure want to delete?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                row.remove();
+                destroy(route('users.destroy', dataID))
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "The data has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+
     }
     return (
         <AuthenticatedLayout>
@@ -64,8 +73,8 @@ const UserList = ({ title }) => {
                 <div className="content-header">
                     <div className="container-fluid">
                         <div className="row mb-2 justify-content-between">
-                                <h1 className="m-0">{title}</h1>
-                                <Link href={route('users.create')} className="btn btn-success btn-sm">Add New</Link>
+                            <h1 className="m-0">{title}</h1>
+                            <Link href={route('users.create')} className="btn btn-success btn-sm">Add New</Link>
                         </div>
                     </div>
                 </div>

@@ -20,10 +20,10 @@ function togglePassword(elem) {
     }
 }
 
-(function () {
-    console.log("IIF function is running")
-    const storageValue = sessionStorage.getItem('sidebar-collapse');
-    if (storageValue === true) {
-        document.body.classList.add('sidebar-collapse');
-    }
-})()
+// (function () {
+//     console.log("IIF function is running")
+//     const storageValue = sessionStorage.getItem('sidebar-collapse');
+//     if (storageValue === true) {
+//         document.body.classList.add('sidebar-collapse');
+//     }
+// })()
