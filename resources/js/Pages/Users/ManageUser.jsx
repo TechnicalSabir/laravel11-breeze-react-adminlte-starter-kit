@@ -1,8 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Transition } from '@headlessui/react';
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import Swal from 'sweetalert2';
-
 
 const UserEdit = ({ title, userData, status }) => {
     const { data, setData, put, post, reset, errors, processing, recentlySuccessful } = useForm(userData);
@@ -16,7 +15,6 @@ const UserEdit = ({ title, userData, status }) => {
 
     const updateUser = (e) => {
         e.preventDefault();
-
         if (userData.id > 0) {
             put(route('users.update', userData.id), {
                 preserveScroll: true,

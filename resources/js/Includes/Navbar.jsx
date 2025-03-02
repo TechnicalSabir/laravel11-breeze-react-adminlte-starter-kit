@@ -1,9 +1,9 @@
 import userLogo from "admin-lte/dist/img/user1-128x128.jpg"
-import { Link, router } from '@inertiajs/react'
+import { router } from '@inertiajs/react'
 
 const Navbar = () => {
     const handleLogout = () => {
-        if(confirm("Are you sure want to logout")){
+        if (confirm("Are you sure want to logout")) {
             router.visit(route('logout'))
         }
     }

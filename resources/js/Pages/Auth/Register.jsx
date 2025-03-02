@@ -2,7 +2,6 @@ import GuestLayout from '@/Layouts/GuestLayout'
 import { Head, useForm, Link } from '@inertiajs/react'
 const appName = import.meta.env.VITE_APP_NAME;
 
-
 const Register = ({ title }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',

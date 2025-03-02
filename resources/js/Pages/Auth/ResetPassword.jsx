@@ -2,7 +2,6 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 const appName = import.meta.env.VITE_APP_NAME;
 
-
 const ResetPassword = ({ title, token, email }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
@@ -10,7 +9,6 @@ const ResetPassword = ({ title, token, email }) => {
         password: '',
         password_confirmation: '',
     });
-
 
     const submit = (e) => {
         e.preventDefault();

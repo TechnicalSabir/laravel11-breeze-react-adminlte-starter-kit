@@ -6,7 +6,6 @@ import React from 'react';
 const Sidebar = React.memo(() => {
     const page = usePage();
     const currentURL = page.url;
-    console.log(currentURL)
     const user = page.props.auth.user;
     return (
         <aside className="main-sidebar sidebar-dark-primary elevation-4">

@@ -4,9 +4,8 @@ import { Modal } from 'bootstrap';
 
 const ModalComponent = ({ children, toggleModal }) => {
     const modalRef = useRef();
-    let modal = null;
     useEffect(() => {
-        modal = new Modal(modalRef.current, { backdrop: "static" });
+        const modal = new Modal(modalRef.current, { backdrop: "static" });
         if (toggleModal) {
             modal.show();
         } else {

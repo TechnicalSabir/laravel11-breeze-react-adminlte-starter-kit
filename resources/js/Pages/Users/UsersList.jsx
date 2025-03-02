@@ -6,7 +6,6 @@ import { useEffect, useRef } from 'react';
 import { createRoot } from "react-dom/client";
 import Swal from "sweetalert2";
 
-
 const UserList = ({ title }) => {
     const { data, delete: destroy } = useForm();
     const userTableRef = useRef();
@@ -41,6 +40,7 @@ const UserList = ({ title }) => {
             }
         })
     }, [userTableRef])
+
     const deleteData = (event) => {
         const currentElement = event.target;
         const dataID = currentElement.getAttribute('data-id');
@@ -66,6 +66,7 @@ const UserList = ({ title }) => {
         });
 
     }
+    
     return (
         <AuthenticatedLayout>
             <Head title={title} />

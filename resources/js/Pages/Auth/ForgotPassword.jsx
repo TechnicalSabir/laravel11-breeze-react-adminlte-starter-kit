@@ -1,6 +1,6 @@
 import GuestLayout from '@/Layouts/GuestLayout'
 import { Head, Link, useForm } from '@inertiajs/react'
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 const appName = import.meta.env.VITE_APP_NAME;
 
 const ForgotPassword = ({ title, status }) => {
@@ -11,7 +11,6 @@ const ForgotPassword = ({ title, status }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        // submitBtnRef.
         post(route('password.email'));
     };
 
