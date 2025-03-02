@@ -15,8 +15,16 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Welcome" />
-            <h1>Welcome page</h1>
-            <Link href={route('login')}>Go to Login</Link>
+            <div className="container-fluid" style={{ height: "80vh" }}>
+                <div className='d-flex m-3 justify-content-end' style={{gap: "1rem"}}>
+                    <Link href={route('login')}>Login</Link>
+                    <Link href={route('register')}>Register</Link>
+                </div>
+                <div className='d-flex justify-content-center align-items-center h-100'>
+                    <h1>Welcome page</h1>
+                </div>
+
+            </div>
         </>
     );
 }

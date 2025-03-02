@@ -15,17 +15,16 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('profile', [Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('profile/password-update', [Controllers\ProfileController::class, 'password_update'])->name('password.update');
 });
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', Controllers\DashboardController::class)->name('dashboard');
     Route::resource('users', Controllers\UserController::class);
     Route::get('users-list-ajax', [Controllers\UserController::class, 'users_list_ajax'])->name('users.ajax_list');
-    // Route::prefix('user')->controller(Controllers\UserController::class)->group(function () {
-    //     Route::get('user-list', 'user_list')->name('user.list');
-    // });
+ 
     //Upcoming routes will go here...
 
 });

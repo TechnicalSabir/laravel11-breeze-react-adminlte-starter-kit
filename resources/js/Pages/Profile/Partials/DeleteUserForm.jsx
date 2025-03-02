@@ -56,7 +56,7 @@ export default function DeleteUserForm() {
                                 <div className="mb-3">
                                     <label>Password</label>
                                     <div className="input-group">
-                                        <input type="password" className="form-control password_input" placeholder="Password" value={data.password} onChange={(e) => setData('password', e.target.value)} />
+                                        <input ref={passwordInput} type="password" className="form-control password_input" placeholder="Password" value={data.password} onChange={(e) => setData('password', e.target.value)} />
                                         <div className="input-group-append">
                                             <div className="input-group-text">
                                                 <i className="fas fa-eye-slash" role='button' password-visibility="hide" title='Toggle password' onClick={(e) => togglePassword(e.target)}></i>
@@ -72,7 +72,6 @@ export default function DeleteUserForm() {
                                     {processing && <div className='spinner-border'></div>}
                                 </button>
                             </div>
-
                         </form>
                     </div>
                 </div>

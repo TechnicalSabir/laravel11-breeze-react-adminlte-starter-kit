@@ -31,8 +31,3 @@ Route::middleware('auth')->group(function () {
         ->name('verification.send');
     Route::get('logout', [Controllers\AuthController::class, 'logout'])->name('logout');
 });
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('organization', [Controllers\AuthController::class, 'organization'])->name('organization.create');
-    Route::post('organization', [Controllers\AuthController::class, 'organization_store'])->name('organization.store');
-});

@@ -9,7 +9,7 @@ const Sidebar = React.memo(() => {
     const user = page.props.auth.user;
     return (
         <aside className="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="index3.html" className="brand-link">
+            <a href="#" className="brand-link">
                 <img src={AdminLTELogo} alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: .8 }} />
                 <span className="brand-text font-weight-light">AdminLTE 3</span>
             </a>

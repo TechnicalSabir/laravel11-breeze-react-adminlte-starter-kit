@@ -1,11 +1,26 @@
 import userLogo from "admin-lte/dist/img/user1-128x128.jpg"
 import { router } from '@inertiajs/react'
+import Swal from "sweetalert2"
 
 const Navbar = () => {
     const handleLogout = () => {
-        if (confirm("Are you sure want to logout")) {
-            router.visit(route('logout'))
-        }
+        Swal.fire({
+            title: "Are you sure want to logout?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "No",
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Logged out!",
+                    icon: "success"
+                });
+                router.visit(route('logout'));
+            }
+        });
     }
     return (
         <nav className="main-header navbar navbar-expand navbar-white navbar-light">
@@ -42,7 +57,7 @@ const Navbar = () => {
                     </div>
                 </li>
                 <li className="nav-item dropdown">
-                    <a className="nav-link" data-toggle="dropdown" href="#">
+                    <a className="nav-link" data-bs-toggle="dropdown" href="#">
                         <i className="far fa-comments"></i>
                         <span className="badge badge-danger navbar-badge">3</span>
                     </a>
@@ -93,7 +108,7 @@ const Navbar = () => {
                     </div>
                 </li>
                 <li className="nav-item dropdown">
-                    <a className="nav-link" data-toggle="dropdown" href="#">
+                    <a className="nav-link" data-bs-toggle="dropdown" href="#">
                         <i className="far fa-bell"></i>
                         <span className="badge badge-warning navbar-badge">15</span>
                     </a>
@@ -129,7 +144,7 @@ const Navbar = () => {
                     </button>
                 </li>
             </ul>
-        </nav >
+        </nav>
     )
 }
 
