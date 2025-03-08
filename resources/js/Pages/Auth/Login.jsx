@@ -2,7 +2,7 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 const appName = import.meta.env.VITE_APP_NAME;
 
-const Login = ({ title }) => {
+const Login = ({ title, status }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -21,6 +21,7 @@ const Login = ({ title }) => {
             <Head title={title} />
             <div className="login-page">
                 <div className="login-box">
+                    {status && <div className={`mb-4 text-center text-${status.alert_type}`}>{status.message}</div>}
                     <div className="login-logo">
                         <p role='button'>{title} | {appName}</p>
                     </div>

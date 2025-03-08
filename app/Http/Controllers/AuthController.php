@@ -74,7 +74,8 @@ class AuthController extends Controller {
     public function login() {
         $title = "Login";
         return Inertia::render('Auth/Login', [
-            'title' => $title
+            'title' => $title,
+            'status' => session('status')
         ]);
     }
 
